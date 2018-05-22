@@ -1,0 +1,13 @@
+# Ignore all dot files
+.*
+!/.gitignore
+!.env
+
+## Exclude plugins folders
+public_html/content
+!public_html/content/themes/base-theme
+
+# WordPress
+public_html/.htaccess
+public_html/wp
+public_html/index.php
