@@ -3,11 +3,14 @@
 !.gitignore
 !.env
 
+# Ignore everything in the "wp-content" directory, except the "plugins"
+# and "themes" directories.
+public_html/content/*
+!public_html/content/plugins/
+!public_html/content/themes/
+
 # Exclude all content subfolders except base theme
-public_html/content
-!public_html/content/index.php
-!public_html/content/themes/base-theme/
-!public_html/content/themes/index.php
+!public_html/content/themes/base/
 
 # WordPress
 public_html/.htaccess
