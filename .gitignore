@@ -6,7 +6,7 @@
 # Exclude all content subfolders except base theme
 public_html/content
 !public_html/content/index.php
-!public_html/content/themes/base-theme
+!public_html/content/themes/base-theme/
 !public_html/content/themes/index.php
 
 # WordPress
