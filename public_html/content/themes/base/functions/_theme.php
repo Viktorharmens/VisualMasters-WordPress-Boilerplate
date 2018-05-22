@@ -79,7 +79,7 @@
 	
 	// Include the ajaxurl and the the favicon
 	add_action( 'wp_head', function() {
-		echo PHP_EOL.'<script>var ajaxurl = "' . admin_url('admin-ajax.php') . '";"</script>';
+		echo PHP_EOL.'<script>var ajaxurl = "' . admin_url('admin-ajax.php') . '";</script>';
 		/*
 		echo PHP_EOL.'<link rel="apple-touch-icon" sizes="57x57" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-57x57.png">
 					  <link rel="apple-touch-icon" sizes="60x60" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-60x60.png">

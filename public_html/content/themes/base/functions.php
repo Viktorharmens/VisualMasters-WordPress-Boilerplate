@@ -25,7 +25,9 @@
 	
 	
 	// External vendor includes
-	include_once 'functions/vendor/gravityforms-acf-population/acf-gravity_forms.php';
+	if( !function_exists('include_field_types_Gravity_Forms') ) {
+		include_once 'functions/vendor/gravityforms-acf-population/acf-gravity_forms.php';
+	}
 	
 	
 	
