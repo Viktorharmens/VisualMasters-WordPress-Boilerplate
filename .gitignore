@@ -1,16 +1,17 @@
 # Ignore all dot files
 .*
 !.gitignore
-!.env
 
 # Ignore everything in the "wp-content" directory, except the "plugins"
 # and "themes" directories.
 public_html/content/*
-!public_html/content/plugins/
-!public_html/content/themes/
 
-# Exclude all content subfolders except base theme
+# Include base theme
 !public_html/content/themes/base/
+
+# Include VM login plug-in
+!public_html/content/plugin/vm-cookies/
+!public_html/content/plugin/vm-login/
 
 # WordPress
 public_html/.htaccess
