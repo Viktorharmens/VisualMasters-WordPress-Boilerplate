@@ -7,14 +7,16 @@
 		Author: VisualMasters
 		Author URI: https://www.visualmasters.nl
 		License: GNU License
-		Version: 1.0.0
+		Version: 1.1.0
 	*/
 	
-	$vm_cookies_plugin_version = '1.0.0';
+	$vm_cookies_plugin_version = '1.1.0';
 	
 	
 	// Load plugin functions
 	include_once 'plugin-functions.php';
+	
+	// Load the ACF fields
 	include_once 'inc/acf-fields.php';
 	
 	// See if there is an update available

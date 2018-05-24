@@ -4,11 +4,12 @@
 	// Check if ACF is included in the theme, otherwise load as dependency
 	if( !function_exists('acf_add_options_page') ) {
         include_once plugin_dir_path( __FILE__ ) . '/app/advanced-custom-fields-pro/acf.php';
-        
-        if( !function_exists('include_field_types_Gravity_Forms') ) {
-        	include_once plugin_dir_path( __FILE__ ) . '/app/gravityforms-acf-population/acf-gravity_forms.php';
-        }
     }
+        
+    if( class_exists( 'GFCommon' ) && !function_exists('register_fields_gravity_forms') ) {
+    	include_once plugin_dir_path( __FILE__ ) . '/app/gravityforms-acf-population/acf-gravity_forms.php';
+    }
+    
     
     // Delete standard privacy menu link
     add_action( 'admin_menu', 'remove_privacy_page' );

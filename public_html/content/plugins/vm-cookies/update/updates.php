@@ -102,7 +102,7 @@
 			}
 			
 			// Update to the new version
-			set_current_version( $vm_cookies_plugin_version );
+			vm_cookies_set_current_version( $vm_cookies_plugin_version );
 			
 		}
 	}
