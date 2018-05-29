@@ -5,7 +5,7 @@ var gulp            = require('gulp');
 var gutil           = require('gulp-util');
 
 // ENV
-require('dotenv').config({path: '../../../.env'});
+require('dotenv').config({path: '../../../../.env'});
 
 // SASS
 var sass            = require('gulp-sass');
@@ -74,7 +74,7 @@ gulp.task('uglify', function(){
 // IMG
 gulp.task('images', function() {
     return gulp.src('./dev/img/**/*.+(png|jpg|jpeg|gif|svg)')
-    // Caching images that ran through imagemin
+   		// Caching images that ran through imagemin
         .pipe(cache(imagemin({
             interlaced: true,
         })))
