@@ -4,6 +4,9 @@
 var gulp            = require('gulp');
 var gutil           = require('gulp-util');
 
+// ENV
+require('dotenv').config({path: '../../../.env'});
+
 // SASS
 var sass            = require('gulp-sass');
 var prefix          = require('gulp-autoprefixer');
@@ -33,7 +36,7 @@ var ftp             = require( 'vinyl-ftp' );
 // Start browserSync server
 gulp.task('browserSync', function() {
     browserSync.init({
-        proxy: "DOMAIN",
+        proxy: process.env.HOST,
         ghostMode: {
             clicks: false,
             location: false,
@@ -133,9 +136,9 @@ gulp.task( 'deploy', function () {
 
     // Set connection
     var conn = ftp.create( {
-        host:     'visualtest.nl',
-        user:     'visualtest',
-        password: 'VisualMasters@109',
+        host:     process.env.FTP_HOST,
+        user:     process.env.FTP_USER,
+        password: process.env.FTP_PASS,
         parallel: 10,
         log:      gutil.log
     } );
@@ -143,7 +146,6 @@ gulp.task( 'deploy', function () {
     var globs = [
         'inc/**',
         'dist/**',
-        'layout/**',
         '*.css',
         '*.php'
     ];
@@ -153,6 +155,6 @@ gulp.task( 'deploy', function () {
 
     return gulp.src( globs, { base: '.', buffer: false } )
         .pipe( conn.newer( '/' ) ) // only upload newer files
-        .pipe( conn.dest( '/domains/nsvleden.visualtest.nl/public_html/' ) );
+        .pipe( conn.dest( process.env.FTP_PATH ) );
 
 } );
