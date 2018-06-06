@@ -36,7 +36,7 @@ var ftp             = require( 'vinyl-ftp' );
 // Start browserSync server
 gulp.task('browserSync', function() {
     browserSync.init({
-        proxy: process.env.HOST,
+        proxy: process.env.WP_HOME,
         ghostMode: {
             clicks: false,
             location: false,
