@@ -1,0 +1,94 @@
+{
+  "name": "yoast/yoast-acf-analysis",
+  "description": "WordPress plugin that adds the content of all ACF fields to the Yoast SEO score analysis.",
+  "keywords": [
+    "yoast",
+    "seo",
+    "acf",
+    "advanced",
+    "custom",
+    "fields",
+    "analysis",
+    "search",
+    "engine",
+    "optimization",
+    "seo",
+    "score"
+  ],
+  "type": "wordpress-plugin",
+  "homepage": "https://wordpress.org/plugins/acf-content-analysis-for-yoast-seo/",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Thomas Kräftner",
+      "email": "thomas@kraftner.com",
+      "homepage": "http://kraftner.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Marcus Forsberg",
+      "homepage": "https://forsberg.ax",
+      "role": "Developer"
+    },
+    {
+      "name": "Team Yoast",
+      "email": "support@yoast.com",
+      "homepage": "https://yoast.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/Yoast/yoast-acf-analysis/issues",
+    "forum": "https://wordpress.org/support/plugin/acf-content-analysis-for-yoast-seo",
+    "source": "https://github.com/Yoast/yoast-acf-analysis"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "composer/installers": "~1.0",
+    "xrstf/composer-php52": "1.*"
+  },
+  "require-dev": {
+    "php": ">=5.6.0",
+    "brain/monkey": "2.*",
+    "phpunit/phpunit": "5.*",
+    "wp-coding-standards/wpcs": "^0.13.1",
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "classmap": [ "inc" ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Yoast\\AcfAnalysis\\Tests\\": "tests/php/unit"
+    },
+    "files": [
+      "tests/js/system/data/test-data-loader-functions.php"
+    ]
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ],
+    "post-update-cmd": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ],
+    "post-autoload-dump": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ],
+    "test": [
+      "vendor/bin/phpunit --configuration tests/php/phpunit.xml.dist --colors=always"
+    ],
+    "configure-phpcs": [
+      "\"vendor/bin/phpcs\" --config-set installed_paths ../../../vendor/wp-coding-standards/wpcs"
+    ],
+    "check-cs": [
+      "\"vendor/bin/phpcs\""
+    ],
+    "check-cs-errors": [
+      "\"vendor/bin/phpcs\" --error-severity=1 --warning-severity=6"
+    ],
+    "fix-cs": [
+      "\"vendor/bin/phpcbf\""
+    ]
+  }
+}
