@@ -66,7 +66,7 @@
 		if( is_admin() ) {
 			// Check if Yoast SEO and ACF are present and active
 			if( is_plugin_active('advanced-custom-fields-pro/acf.php') && is_plugin_active('wordpress-seo/wp-seo.php') ) {
-				include_once get_template_directory() . '/functions/vendor/acf-content-analysis-for-yoast-seo/yoast-acf-analysis.php';
+				include_once get_template_directory() . '/functions/vendor/acf-content-analysis/yoast-acf-analysis.php';
 			}
 		}
 	}

@@ -146,6 +146,7 @@ gulp.task( 'deploy', function () {
     var globs = [
         'inc/**',
         'dist/**',
+        'functions/**',
         '*.css',
         '*.php'
     ];
