@@ -48,16 +48,16 @@
 	// Enqueue scripts
 	function enqueue_scripts_styles() {
 		global $wp_scripts;
-		wp_enqueue_style( 'styles', get_template_directory_uri().'/dist/css/style.css', null, THEME_VERSION );
+		wp_enqueue_style( 'styles', get_stylesheet_directory_uri() . '/dist/css/styles.css', null, THEME_VERSION );
 		wp_enqueue_style( 'fonts', '' );
 		
 		wp_deregister_script('wp-embed');
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js', false, null);
+		wp_register_script('jquery', 'https://code.jquery.com/jquery-2.2.4.min.js', false, null);
 		wp_enqueue_script('jquery', null, null, false);
 		
-		wp_enqueue_script("plugins", get_template_directory_uri()."/dist/js/plugins.js", null, THEME_VERSION, true);
-		wp_enqueue_script("scripts", get_template_directory_uri()."/dist/js/scripts.js", null, THEME_VERSION, true);
+		wp_enqueue_script("plugins", get_stylesheet_directory_uri() . '/dist/js/plugins.js', null, THEME_VERSION, true);
+		wp_enqueue_script("scripts", get_stylesheet_directory_uri() . '/dist/js/scripts.js', null, THEME_VERSION, true);
 		
 		// Initialize Google Maps
 		if( function_exists('get_field') && get_field('googlemaps_apikey', 'option') ) {
