@@ -1,7 +1,0 @@
-{
-    "require": {
-        "layershifter/tld-extract": "*",
-        "phpgangsta/googleauthenticator" : "dev-master",
-        "mandrill/mandrill" : "*"
-    }
-}
