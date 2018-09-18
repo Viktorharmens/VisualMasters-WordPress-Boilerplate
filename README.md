@@ -1,17 +1,16 @@
-# 	 _    ___                  ____  ___           __                
-#	| |  / (_)______  ______ _/ /  |/  /___ ______/ /____  __________
-#	| | / / / ___/ / / / __ `/ / /|_/ / __ `/ ___/ __/ _ \/ ___/ ___/
-#	| |/ / (__  ) /_/ / /_/ / / /  / / /_/ (__  ) /_/  __/ /  (__  ) 
-# 	|___/_/____/\__,_/\__,_/_/_/  /_/\__,_/____/\__/\___/_/  /____/  
-#
-                                                                 
+``` _    ___                  ____  ___           __                
+| |  / (_)______  ______ _/ /  |/  /___ ______/ /____  __________
+| | / / / ___/ / / / __ `/ / /|_/ / __ `/ ___/ __/ _ \/ ___/ ___/
+| |/ / (__  ) /_/ / /_/ / / /  / / /_/ (__  ) /_/  __/ /  (__  ) 
+|___/_/____/\__,_/\__,_/_/_/  /_/\__,_/____/\__/\___/_/  /____/  
+```                                                              
                                                                  
 VisualMasters Base Theme for WordPress
 by VisualMasters
 
 
 
-Versioning and Authors
+# Versioning and Authors
 ==================================================================
 Version: 	1.0.1
 Author:		Justin Streuper - VisualMasters
@@ -21,21 +20,21 @@ Support:	justin@visualmasters.nl
 
 
 
-Planned for future releases:
+# Planned for future releases:
 ==================================================================
 -	Implementation of a GIT deploy hook to automatically install this
 	theme to development, staging and production environements
 
 
 
-Credits:
+# Credits:
 ==================================================================	
 Sander Koedood (CowDev) for the basic layout of the installation 
 and cooking up the gulpfile to get this baby working correctly
 
 
 
-Description:
+# Description:
 ==================================================================
 This base theme is used to provide a boilerplate for developing
 safe and modular WordPress themes. It also uses an alternative
@@ -46,7 +45,7 @@ standard hacks.
 
 
 
-Installation:
+# Installation:
 ==================================================================
 1. 	Download the package and upload it to the domain-root 
 	directory. This means you have to put the files one folder
@@ -87,9 +86,11 @@ Installation:
 
 5.	Go to the theme folder in your terminal and run the following 
 	commands:
-	- gulp install --save-dev
-	- gulp build
-	- gulp
+	``` 
+	gulp install --save-dev
+	gulp build
+	gulp
+	``` 
 
 6.	You're ready to go 
 
