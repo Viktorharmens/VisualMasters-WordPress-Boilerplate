@@ -1,11 +1,14 @@
-<?php get_header(); ?>
+<?php
 	
-	<?php if ( have_posts() ) : while ( have_posts() ) : the_post();
+	get_header();
+	
+	$rows = get_field('rows');
+	foreach( $rows as $key => $row ) {
 		
-		the_title( '<h1>', '</h1>', true );
-		the_content();
+		get_page_part( 'rows' , $row['acf_fc_layout'], $row );
 		
-	endwhile; endif; ?>
-
-
-<?php get_footer(); ?>
+	}
+	
+	get_footer();
+	
+?>

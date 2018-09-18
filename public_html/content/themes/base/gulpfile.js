@@ -50,7 +50,7 @@ gulp.task('sass', function (){
     gulp.src(['./dev/sass/styles.scss'])
         .pipe(sass({
             includePaths: ['./dev/sass','./dev/sass/base','./dev/sass/layout','./dev/sass/sections'],
-            outputStyle: 'expanded'
+            outputStyle: 'compressed'
         }))
         .on('error', swallowError)
         .pipe(prefix(
@@ -144,9 +144,9 @@ gulp.task( 'deploy', function () {
     } );
 
     var globs = [
-        'inc/**',
         'dist/**',
         'functions/**',
+        'parts/**',
         '*.css',
         '*.php'
     ];
@@ -155,7 +155,7 @@ gulp.task( 'deploy', function () {
     // turn off buffering in gulp.src for best performance
 
     return gulp.src( globs, { base: '.', buffer: false } )
-        .pipe( conn.newer( '/' ) ) // only upload newer files
+        .pipe( conn.newer( process.env.FTP_PATH ) ) // only upload newer files
         .pipe( conn.dest( process.env.FTP_PATH ) );
 
 } );

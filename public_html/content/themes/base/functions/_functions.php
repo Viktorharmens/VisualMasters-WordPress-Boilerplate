@@ -10,8 +10,8 @@
 	function the_breadcrumbs() {
 		if ( function_exists('yoast_breadcrumb') ) { 
 			
-			$prefix = __('U bent hier:');
-			if(is_search()) $prefix = __('U zocht naar:', 'default');
+			$prefix = __('U bent hier:', 'visualmasters');
+			if(is_search()) $prefix = __('U zocht naar:', 'visualmasters');
 			
 			yoast_breadcrumb('<span class="breadcrumbs__prefix">' . $prefix . '</span>');
 		}
@@ -68,14 +68,15 @@
 	function get_pagination() {
 		global $wp_query;
 		$big = 999999999;
-		return paginate_links( array(
-			'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-			'format' => '?paged=%#%',
-			'current' => max( 1, get_query_var('paged') ),
-			'total' => $wp_query->max_num_pages,
-			'prev_text' => '<span>' . __('Vorige pagina', THEME_TEXTDOMAIN) . '</span>',
-			'next_text' => '<span>' . __('Volgende pagina', THEME_TEXTDOMAIN) . '</span>'
-		) );
+		return str_replace('prev page-numbers', 'prev', 
+				str_replace('next page-numbers', 'next', 
+							paginate_links( array('base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+												  'format' => '?paged=%#%',
+												  'current' => max( 1, get_query_var('paged') ),
+												  'total' => $wp_query->max_num_pages,
+												  'prev_text' => '<span>' . __('Vorige pagina', 'visualmasters') . '</span>',
+												  'next_text' => '<span>' . __('Volgende pagina', 'visualmasters') . '</span>'
+				) ) ) );
 	}
 	
 	function the_pagination() {
@@ -108,9 +109,9 @@
 
 		$timediff = human_time_diff( (($time == null) ? get_the_time('U', $post) : strtotime($time)) , current_time('timestamp'));		
 		if($echo == true) {
-			printf( esc_html__( '%s geleden geplaatst', THEME_TEXTDOMAIN ), $timediff );
+			printf( esc_html__( '%s geleden geplaatst', 'visualmasters' ), $timediff );
 		} else {
-			return sprintf( esc_html__( '%s geleden geplaatst', THEME_TEXTDOMAIN ), $timediff );
+			return sprintf( esc_html__( '%s geleden geplaatst', 'visualmasters' ), $timediff );
 		}
 	}
 	
@@ -229,21 +230,6 @@
 	
 	
 	
-	
-	// ===================================================
-	// Check if landing page element needs to be H1 or H2
-	// ===================================================
-	function set_heading_priority($heading, $h1, $class=null) {
-		if($h1) {
-			return '<h1 ' . (($class != null) ? 'class="' . $class . '"' : '') . '>'.$heading.'</h1>';
-		} else {
-			return '<h2 ' . (($class != null) ? 'class="' . $class . '"' : '') . '>'.$heading.'</h2>';
-		}
-	}
-	
-	
-	
-	
 	// =======================================================
 	// Reset default gallery styling and add lightbox support
 	// =======================================================
@@ -272,6 +258,68 @@
 	function address_format( $format ) {
 	    return 'zip_before_city';
 	}
+	
+	
+	
+	
+	// ====================================
+	// Get the page row and pass variables
+	// ====================================
+	function get_page_part( $part, $file, $content = null ) {
+	    // Load the file 
+	    include( locate_template( '/parts/' . $part . '/' . $file . '.php', false, false ) ); 
+	}
+	
+	
+	
+	// ======================================
+	// Set the page row margins by data attr
+	// ======================================
+	function the_row_margins( $row ) {
+		$content = '';
+		$margins = $row['margins'];
+		if( !empty($margins) ) {
+			foreach( $margins as $key => $margin ) {
+				if( !empty($margin) ) {
+					$content .= ' data-' . $key . '="' . intval($margin) . '"';
+				}
+			}
+		}
+		
+		$paddings = $row['paddings'];
+		if( !empty($paddings) ) {
+			foreach( $paddings as $key => $padding ) {
+				if( !empty($padding) ) {
+					$content .= ' data-' . $key . '="' . intval($padding) . '"';
+					$paddingSet = true;
+				}
+			}
+		}
+		
+		if( isset($paddingSet) ) {
+			$content .= ' data-target="' . $row['paddings']['padding-target'] . '"';
+		}
+		
+		echo $content;
+	}
+	
+	
+	
+	
+	// ===============================================
+	// Set the heading weight and type (h1, h2, etc.)
+	// ===============================================
+	function the_heading( $heading ) {
+			
+		if( !empty($heading['title']) ) {
+			if( empty($heading['type']) ) { $heading['type'] = 'h2'; }
+			if( empty($heading['weight']) ) { $heading['weight'] = 'large'; }
+			
+			echo '<' . $heading['type'] . ' class="heading heading--' . $heading['weight'] . '">' . $heading['title'] . '</' . $heading['type'] . '>';
+		}
+		
+	}
+	
 	
 	
 	

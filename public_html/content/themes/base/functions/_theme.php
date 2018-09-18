@@ -7,7 +7,7 @@
 	// Enable featured images
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' ); 
-	//add_image_size( 'page-portrait', 500, 800, true ); 
+	add_image_size( 'slideshow', 1500, 800, true ); 
 	
 	
 	
@@ -15,9 +15,7 @@
 	function setup_navs() {
 	    register_nav_menus( array(
 	        'primary_menu' => 'Primaire navigatie',
-	        'secondary_menu' => 'Secundaire navigatie',
-	        'footer_menu_left' => 'Footer links - links',
-	        'footer_menu_right' => 'Footer links - rechts'
+	        'secondary_menu' => 'Secundaire navigatie'
 	    ) );
 	}
 	add_action( 'after_setup_theme', 'setup_navs' );
@@ -31,17 +29,10 @@
 			'menu_title'	=> 'Site opties',
 			'redirect'		=> false,
 			'position' 		=> 80,
-			'icon_url'		=> 'dashicons-admin-tools'
-		));
-		
-		acf_add_options_page(array(
-			'page_title' 	=> 'Homepage',
-			'menu_title'	=> 'Homepage',
-			'redirect'		=> false,
-			'position' 		=> 4,
-			'icon_url'		=> 'dashicons-admin-home'
+			'icon_url'		=> 'dashicons-editor-table'
 		));
 	}
+
 	
 	
 	
@@ -49,7 +40,7 @@
 	function enqueue_scripts_styles() {
 		global $wp_scripts;
 		wp_enqueue_style( 'styles', get_stylesheet_directory_uri() . '/dist/css/styles.css', null, THEME_VERSION );
-		wp_enqueue_style( 'fonts', '' );
+		wp_enqueue_style( 'fonts', 'https://use.typekit.net/jbm2ajd.css', null, THEME_VERSION );
 		
 		wp_deregister_script('wp-embed');
 		wp_deregister_script('jquery');
@@ -58,6 +49,7 @@
 		
 		wp_enqueue_script("plugins", get_stylesheet_directory_uri() . '/dist/js/plugins.js', null, THEME_VERSION, true);
 		wp_enqueue_script("scripts", get_stylesheet_directory_uri() . '/dist/js/scripts.js', null, THEME_VERSION, true);
+		wp_enqueue_script("theme", get_stylesheet_directory_uri() . '/dist/js/theme.js', null, THEME_VERSION, true);
 		
 		// Initialize Google Maps
 		if( function_exists('get_field') && get_field('googlemaps_apikey', 'option') ) {
@@ -77,31 +69,26 @@
 	
 	
 	
-	// Include the ajaxurl and the the favicon
+	// Include the ajaxurl
 	add_action( 'wp_head', function() {
 		echo PHP_EOL.'<script>var ajaxurl = "' . admin_url('admin-ajax.php') . '";</script>';
-		/*
-		echo PHP_EOL.'<link rel="apple-touch-icon" sizes="57x57" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-57x57.png">
-					  <link rel="apple-touch-icon" sizes="60x60" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-60x60.png">
-					  <link rel="apple-touch-icon" sizes="72x72" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-72x72.png">
-					  <link rel="apple-touch-icon" sizes="76x76" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-76x76.png">
-					  <link rel="apple-touch-icon" sizes="114x114" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-114x114.png">
-					  <link rel="apple-touch-icon" sizes="120x120" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-120x120.png">
-					  <link rel="apple-touch-icon" sizes="144x144" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-144x144.png">
-					  <link rel="apple-touch-icon" sizes="152x152" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-152x152.png">
-					  <link rel="apple-touch-icon" sizes="180x180" href="'.get_template_directory_uri().'/lib/img/favicon/apple-icon-180x180.png">
-					  <link rel="icon" type="image/png" sizes="192x192"  href="'.get_template_directory_uri().'/lib/img/favicon/android-icon-192x192.png">
-					  <link rel="icon" type="image/png" sizes="32x32" href="'.get_template_directory_uri().'/lib/img/favicon/favicon-32x32.png">
-					  <link rel="icon" type="image/png" sizes="96x96" href="'.get_template_directory_uri().'/lib/img/favicon/favicon-96x96.png">
-					  <link rel="icon" type="image/png" sizes="16x16" href="'.get_template_directory_uri().'/lib/img/favicon/favicon-16x16.png">
-					  <link rel="manifest" href="'.get_template_directory_uri().'/lib/img/favicon/manifest.json">
-					  <meta name="msapplication-TileColor" content="' . get_field('theme_color_base', 'option') . '">
-					  <meta name="msapplication-TileImage" content="'.get_template_directory_uri().'/lib/img/favicon/ms-icon-144x144.png">
-					  <meta name="theme-color" content="' . get_field('theme_color_base', 'option') . '">';*/
 	});
 	
-		
 	
+	
+	// Alter query for the product pages
+	function alter_post_per_page( $query ) {
+		
+	    if ( is_admin() || ! $query->is_main_query() )
+	        return;
+	
+	    /*if ( is_post_type_archive( 'product' ) ||  is_tax( 'type' ) ||  is_tax( 'brand' ) ) {
+			$query->set( 'posts_per_page', -1 );
+	        return;
+	    }*/
+	    
+	}
+	add_action( 'pre_get_posts', 'alter_post_per_page', 1 );
 	
 	
 	

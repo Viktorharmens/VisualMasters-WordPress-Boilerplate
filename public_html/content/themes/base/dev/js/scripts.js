@@ -1,10 +1,4 @@
-/*globals FastClick:false */
-/*globals ajaxurl:false */
-/*globals lazySizesConfig:false */
-/*globals lazySizes:false */
-/*globals jQuery:false */
-/*globals $:false */
-
+var scaleResizeTimer;
 
 
 function scaleImages( target ) {
@@ -15,21 +9,14 @@ function scaleImages( target ) {
 }
 
 
+function openModal( modal ) {
+	var topScrollPos = $(window).scrollTop();
+	$('.modal, .modal .modal__box[data-modal="' + modal + '"]').addClass('is--active');
+	$('body').addClass('no-scroll').attr( 'data-scrollpos', topScrollPos );
+}
+
 
 (function($) {
-	
-	// Add fastclick polyfill
-	var needsClick = FastClick.prototype.needsClick;
-	FastClick.prototype.needsClick = function(target) { 
-		if ( (target.className || '').indexOf('pac-item') > -1 ) {
-			return true;
-		} else if ( (target.parentNode.className || '').indexOf('pac-item') > -1) {
-			return true;
-		} else {
-			return needsClick.apply(this, arguments);
-		}
-	};
-	FastClick.attach(document.body);
 	
 	// Lazyload overrides
 	window.lazySizesConfig = window.lazySizesConfig || {};
@@ -41,9 +28,9 @@ function scaleImages( target ) {
 	
 	// Scale the images
 	$(document).ready(function () {
-		scaleResizeTimer = setTimeout( scaleImages('.img-scale'), 300);
+		scaleResizeTimer = setTimeout( scaleImages('.js-image-scale'), 300);
 		$(window).on('resize', function(){ 
-			scaleResizeTimer = setTimeout( scaleImages('.img-scale'), 300);
+			scaleResizeTimer = setTimeout( scaleImages('.js-image-scale'), 300);
 		});
 	});
 	
@@ -77,26 +64,40 @@ function scaleImages( target ) {
 		e.preventDefault();
 		$(this).toggleClass('is--active');
 		$('.navigation').toggleClass('is--active');
+		
+		
+		if( $('.navigation').hasClass('is--active') ) {
+			var topScrollPos = $(window).scrollTop();
+			$('body').addClass('no-scroll').attr( 'data-scrollpos', topScrollPos );
+		} else {
+			$('body').removeClass('no-scroll');
+			$(window).scrollTop( $('body').attr('data-scrollpos') );
+			$('body').attr( 'data-scrollpos', '' );
+		}
+			
+	});
+	
+	$('.js-toggle-subnav').on('click', function(e) {
+		e.preventDefault();
+		$(this).parents('li').toggleClass('is--active');
 	});
 	
 		
 	// Modal actions
 	$(document).on('click', '.js-open-modal', function(e){
 		e.preventDefault();
-		$('.modal, .modal .box[data-modal="' + $(this).data('modal') + '"]').fadeIn();
-		
-		// Store scrollposition and lock scroll on body
-		$('body').addClass('no-scroll').data( 'scrollpos', $(window).scrollTop() );
+		openModal( $(this).data('modal') );
 	});
+	
 	
 	$('.js-close-modal').on('click', function(e){
 		e.preventDefault();
-		$('.modal, .modal .box').fadeOut();
+		$('.modal, .modal .modal__box').removeClass('is--active');
 		
 		// Revert back to old scrollposition
 		$('body').removeClass('no-scroll');
-		$(window).scrollTop( $('body').data('scrollpos') );
-		$('body').data( 'scrollpos', '' );
+		$(window).scrollTop( $('body').attr('data-scrollpos') );
+		$('body').attr( 'data-scrollpos', '' );
 	});
 		
 	
